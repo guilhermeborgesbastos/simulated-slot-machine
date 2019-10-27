@@ -5,7 +5,7 @@ namespace App\Models;
 class Payline {
 
     private $sequence;
-    private $matches;
+    private $matches; // The number of equal symbols sequentially
 
     public function __construct($sequence = array()) {
         $this->sequence = $sequence;

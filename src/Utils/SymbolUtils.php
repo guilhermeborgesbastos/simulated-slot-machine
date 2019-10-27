@@ -17,10 +17,9 @@ class SymbolUtils {
      * It uses the Mersenne Twister algorithm in order to achieve better performance and
      * increase the randomness.
      *
-     * @param  mixed $symbols
      * @return void
      */
-    static function fetchRandomValue($symbols) {
+    static function fetchRandomValue() {
         $symbols = config('Settings.symbols');
         return $symbols[mt_rand(0, count($symbols) - 1)];
     }

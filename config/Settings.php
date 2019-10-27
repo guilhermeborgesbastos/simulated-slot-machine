@@ -7,19 +7,30 @@
  * @author Guilherme Borge Bastos
  * @data   10/27/2019
 */
+
+
+define("SETTINGS", "Settings");
+define("BET_AMOUNT", "bet_amount");
+define("GRID", "grid");
+define("ROWS", "rows");
+define("COLS", "columns");
+define("SYMBOLS", "symbols");
+define("PAYLINES", "paylines");
+define("PAYOUTS", "payouts");
+
 return [
 
     // The bet's total amount.
-    'bet_amount' => 1,
+    BET_AMOUNT => 1,
 
     // The dimensions of the grid (2d Array) that will contain the random symbols.
-    'grid' => [
-        'rows' => 3,
-        'columns' => 5
+    GRID => [
+        ROWS => 3,
+        COLS => 5
     ],
 
     // The symbols that are available to randomly fill the grid (2d array).
-    'symbols' => [
+    SYMBOLS => [
         '9', '10', 'J', 'Q', 'K',
         'A', 'cat', 'dog', 'monkey', 'bird'
     ],
@@ -29,7 +40,7 @@ return [
      * consecutive symbols of the same kind are present in a payline, always starting
      * from the first column (0, 1, 2).
     */
-    'paylines' => [
+    PAYLINES => [
         [0, 3, 6, 9,  12],
         [1, 4, 7, 10, 13],
         [2, 5, 8, 11, 14],
@@ -42,7 +53,7 @@ return [
      * based on the paylines. It has its Key as the number of consecutive symbols and the value
      * as the percentage of earning over the bet amount.
     */
-    'payouts' => [
+    PAYOUTS => [
         3 => 20,
         4 => 200,
         5 => 1000
