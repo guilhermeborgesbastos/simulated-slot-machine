@@ -17,13 +17,13 @@ class Game {
     private $paylines;
     private $payouts;
     private $board;
-    private $bet_amount;
+    private $betAmount;
 
     public function __construct($settings) {
         $this->settings = $settings;
         $this->paylines = array();
         $this->payouts = array();
-        $this->bet_amount = $this->setBetAmount($settings[BET_AMOUNT]);
+        $this->betAmount = $this->setBetAmount($settings[BET_AMOUNT]);
 
         $this->board = new Board(
             $settings[GRID][COLS],
@@ -36,11 +36,11 @@ class Game {
     /**
      * Sets the bet amount converting it to cents.
      *
-     * @param  mixed $bet_amount
+     * @param  mixed $betAmount
      * @return void
      */
-    public function setBetAmount($bet_amount) {
-        return $bet_amount * 100;
+    public function setBetAmount($betAmount) {
+        return $betAmount * 100;
     }
 
     /**
@@ -122,7 +122,7 @@ class Game {
         foreach($this->paylines as &$payline) {
             $matches = $payline->getMatches();
             if($matches > 0) {
-                $won += ($this->payouts[$matches] / 100) * $this->bet_amount;
+                $won += ($this->payouts[$matches] / 100) * $this->betAmount;
             }
         }
         return $won;
@@ -133,14 +133,17 @@ class Game {
      *
      * @param  mixed $board
      * @param  mixed $paylines
-     * @param  mixed $bet_amount
-     * @param  mixed $total_win
+     * @param  mixed $betAmount
+     * @param  mixed $totalWon
      *
      * @return void
      */
-    private static function outputResult($board, $paylines, $bet_amount, $total_win) {
-        $response = new ResponseDTO($board, $paylines, $bet_amount, $total_win);
+    private static function outputResult($board, $paylines, $betAmount, $totalWon) {
+        $response = new ResponseDTO($board, $paylines, $betAmount, $totalWon);
         $response->printResume();
+    }
+
+    static function breakLine() {
         echo "\n";
     }
 
@@ -151,29 +154,20 @@ class Game {
      */
     public function play() {
 
-        // It fills the board with the random symbols.
+        // It fills the board with random symbols.
         // $this->board->fillMock();
         $this->board->fill();
 
         // Prints the grid for the better user experience.
         $this->board->printGrid();
-
-        echo "\n";
+        Self::breakLine();
 
         // Calculates the paylines for the match.
         $this->calculatePaylinesMatch();
+        Self::breakLine();
 
-        /*
-        // In here just in case it's needed to 'debug' the paylines...
-        foreach($this->paylines as &$payline) {
-            echo $payline->toString() . "\n";
-        }
-        // */
-
-        echo "\n";
-
-        $total_win = $this->calculatePayout();
-        Self::outputResult($this->board, $this->paylines, $this->bet_amount, $total_win);
+        $totalWon = $this->calculatePayout();
+        Self::outputResult($this->board, $this->paylines, $this->betAmount, $totalWon);
     }
 }
 ?>
