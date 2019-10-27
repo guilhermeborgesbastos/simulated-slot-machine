@@ -10,20 +10,21 @@ namespace App;
 use App\Models\Board;
 use App\Models\Payline;
 use App\DTO\ResponseDTO;
+use App\Utils\SettingsUtils;
 
 class Game {
 
+    private $betAmount;
     private $settings;
     private $paylines;
     private $payouts;
     private $board;
-    private $betAmount;
 
     public function __construct($settings) {
-        $this->settings = $settings;
+        $this->betAmount = $this->setBetAmount($settings[BET_AMOUNT]);
+        $this->settings = $this->setSettings($settings);
         $this->paylines = array();
         $this->payouts = array();
-        $this->betAmount = $this->setBetAmount($settings[BET_AMOUNT]);
 
         $this->board = new Board(
             $settings[GRID][COLS],
@@ -34,10 +35,20 @@ class Game {
     }
 
     /**
+     * Sets the configuration setting doing the required validations.
+     *
+     * @param  mixed $settings
+     * @return The settings
+     */
+    public function setSettings($settings) {
+        return SettingsUtils::validate($settings);
+    }
+
+    /**
      * Sets the bet amount converting it to cents.
      *
      * @param  mixed $betAmount
-     * @return void
+     * @return The bet amount
      */
     public function setBetAmount($betAmount) {
         return $betAmount * 100;
