@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file contains the configurations for the application works. The intent here is to be
  * able to change the application's metrics without touch the concrete implementation.
@@ -7,7 +6,6 @@
  * @author Guilherme Borge Bastos
  * @data   10/27/2019
 */
-
 
 define("SETTINGS", "Settings");
 define("BET_AMOUNT", "bet_amount");
@@ -20,7 +18,7 @@ define("PAYOUTS", "payouts");
 
 return [
 
-    // The bet's total amount.
+    // The bet's total amount, e.g: 1 Euro.
     BET_AMOUNT => 1,
 
     // The dimensions of the grid (2d Array) that will contain the random symbols.
