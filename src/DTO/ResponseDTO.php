@@ -12,13 +12,13 @@ class ResponseDTO implements \JsonSerializable {
     private $board;
     private $paylines;
     private $betAmount;
-    private $total_win;
+    private $totalWon;
 
-    public function __construct($board, $paylines, $betAmount, $total_win) {
+    public function __construct($board, $paylines, $betAmount, $totalWon) {
         $this->board = $board;
         $this->paylines = $paylines;
         $this->betAmount = $betAmount;
-        $this->total_win = $total_win;
+        $this->totalWon = $totalWon;
     }
 
     /**
@@ -70,6 +70,25 @@ class ResponseDTO implements \JsonSerializable {
         return $flatArray;
     }
 
+    /*
+     * Getters and Setters.
+    */
+    public function getBoard() {
+        return $this->board;
+    }
+
+    public function getPaylines() {
+        return $this->paylines;
+    }
+
+    public function getBetAmount() {
+        return $this->betAmount;
+    }
+
+    public function getTotalWon() {
+        return $this->totalWon;
+    }
+
     public function printResume() {
         echo json_encode($this) . "\n";
     }
@@ -79,7 +98,7 @@ class ResponseDTO implements \JsonSerializable {
 			'board' => $this->toFlatArray($this->board->getGrid()),
 			'paylines' => $this->formatPaylines($this->paylines),
 			'bet_amount' => $this->betAmount,
-			'total_win' => $this->total_win
+			'total_win' => $this->totalWon
 		];
     }
 }

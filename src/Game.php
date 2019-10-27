@@ -40,7 +40,7 @@ class Game {
      * @param  mixed $settings
      * @return The settings
      */
-    public function setSettings($settings) {
+    private function setSettings($settings) {
         return SettingsUtils::validate($settings);
     }
 
@@ -50,7 +50,7 @@ class Game {
      * @param  mixed $betAmount
      * @return The bet amount
      */
-    public function setBetAmount($betAmount) {
+    private function setBetAmount($betAmount) {
         return $betAmount * 100;
     }
 
@@ -140,22 +140,29 @@ class Game {
     }
 
     /**
-     * Outputs the results of the match.
+     * Outputs the results of the Game match.
      *
      * @param  mixed $board
      * @param  mixed $paylines
      * @param  mixed $betAmount
      * @param  mixed $totalWon
      *
-     * @return void
+     * @return The ResponseDTO
      */
-    private static function outputResult($board, $paylines, $betAmount, $totalWon) {
-        $response = new ResponseDTO($board, $paylines, $betAmount, $totalWon);
-        $response->printResume();
+    private function outputGameMatchResult($board, $paylines, $betAmount, $totalWon) {
+       return new ResponseDTO($board, $paylines, $betAmount, $totalWon);
     }
 
     static function breakLine() {
         echo "\n";
+    }
+
+    public function getBoard() {
+        return $this->board;
+    }
+
+    public function setBoardGrid($grid) {
+        $this->board->setGrid($grid);
     }
 
     /**
@@ -165,20 +172,12 @@ class Game {
      */
     public function play() {
 
-        // It fills the board with random symbols.
-        // $this->board->fillMock();
-        $this->board->fill();
-
-        // Prints the grid for the better user experience.
-        $this->board->printGrid();
-        Self::breakLine();
-
         // Calculates the paylines for the match.
         $this->calculatePaylinesMatch();
         Self::breakLine();
 
         $totalWon = $this->calculatePayout();
-        Self::outputResult($this->board, $this->paylines, $this->betAmount, $totalWon);
+        return $this->outputGameMatchResult($this->board, $this->paylines, $this->betAmount, $totalWon);
     }
 }
 ?>

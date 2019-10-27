@@ -22,11 +22,27 @@ class Board {
         $this->grid = array(array());
     }
 
+    public function getColumns() {
+        return $this->columns;
+    }
+
+    public function getRows() {
+        return $this->rows;
+    }
+
     public function getGrid() {
         return $this->grid;
     }
 
+    public function setGrid($grid) {
+        $this->grid = $grid;
+    }
+
     /**
+     * TO-DO: for a second version, it would be possible to implement this method in
+     * a way that would work regardless the Board's dimention, currently, it works only
+     * for matrixes with 3 rows and 5 columns.
+     *
      * This method is capable of retrieving a specific element from the grid (2d matrix)
      * just by receiving the desired index position. In this way, there is NO NEED to
      * traverse the array looking for the element (board' symbol).
@@ -49,7 +65,7 @@ class Board {
      *
      * @return void
      */
-    public function fill() {
+    public function fillRandomly() {
         for ($row = 0; $row < $this->rows; $row++) {
             for ($col = 0; $col < $this->columns; $col++) {
                 $this->grid[$row][$col] = SymbolUtils::fetchRandomValue();
@@ -57,19 +73,8 @@ class Board {
         }
     }
 
-    /*
-     * The mocked grid used for deterministic testing.
-    */
-    public function fillMock() {
-        $this->grid = array(
-            array('J', 'J', 'J', 'Q', 'K'),
-            array('Cat', 'J', 'Q', 'Mon', 'Bir'),
-            array('Bir', 'Bir', 'J', 'Q', 'A')
-        );
-    }
-
     public function printGrid() {
-
+        echo "\n";
         for ($row = 0; $row < count($this->grid); $row++) {
             for ($col = 0; $col < count($this->grid[$row]); $col++) {
                 echo $this->grid[$row][$col] . " - ";

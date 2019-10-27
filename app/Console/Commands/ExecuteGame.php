@@ -43,6 +43,13 @@ class ExecuteGame extends Command {
      */
     public function handle()
     {
-        $this->game->play();
+        // Fills the board with random symbols.
+        $this->game->getBoard()->fillRandomly();
+
+        // Start the game execution.
+        $gameMatch = $this->game->play();
+
+        // Prints the match status in the console.
+        $gameMatch->printResume();
     }
 }
